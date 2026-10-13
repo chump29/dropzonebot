@@ -9,12 +9,12 @@ import { loadCommands } from "../events/loadCommands.ts"
 import { DB } from "./db.ts"
 import { env } from "./env.ts"
 
-interface IQuotesClient {
+interface IDropZoneClient {
   init: (testClient?: DiscordClient) => Promise<DiscordClient>
   shutdown: (event?: string) => Promise<void>
 }
 
-class QuotesClient implements IQuotesClient {
+class DropZoneClient implements IDropZoneClient {
   private CLIENT!: DiscordClient
 
   private LOGO_SERVER!: LogoServer
@@ -95,6 +95,6 @@ class QuotesClient implements IQuotesClient {
   }
 }
 
-const Client: IQuotesClient = new QuotesClient()
+const Client: IDropZoneClient = new DropZoneClient()
 
 export { Client }

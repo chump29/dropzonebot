@@ -1,7 +1,7 @@
 #!/usr/bin/env -S bash -e
 
 export _user=chump29
-export _repo=soberbot
+export _repo=dropzonebot
 
 echo -e "📌 Packages:\n"
 
