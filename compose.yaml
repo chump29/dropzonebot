@@ -8,8 +8,6 @@ services:
     volumes:
       - db:/app/db
     environment:
-      - LOGO_NAME=dropzonebot.webp
-      - LOGO_PATH=./utils/images
       - LOGO_PORT=8001
       - LOGO_URL=https://dropzonebot.postfmly.us/dropzonebot.webp
       - TZ=America/Chicago

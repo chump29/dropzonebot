@@ -2,43 +2,27 @@ import { parse } from "node:path"
 
 import {
   type ChatInputCommandInteraction,
+  InteractionContextType,
   MessageFlags,
   PermissionFlagsBits,
   type RESTPostAPIChatInputApplicationCommandsJSONBody,
   SlashCommandBuilder
 } from "discord.js"
 
-import prettyMilliseconds from "pretty-ms"
+import { DropZone } from "../../utils/dropzone.ts"
 
-import { END, RUNNING } from "../../utils/loadTimer.ts"
-
-const create = (): RESTPostAPIChatInputApplicationCommandsJSONBody => {
-  return new SlashCommandBuilder()
+const create = (): RESTPostAPIChatInputApplicationCommandsJSONBody =>
+  new SlashCommandBuilder()
     .setName(parse(import.meta.file).name)
     .setDescription("Show loot drop status")
+    .setContexts(InteractionContextType.Guild)
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .toJSON()
-}
 
 const invoke = async (interaction: ChatInputCommandInteraction): Promise<void> => {
-  if (!RUNNING) {
-    await interaction.reply({
-      content: `-# > ❌ ${Bun.env.NAME} is not started`,
-      flags: MessageFlags.Ephemeral
-    })
-    return
-  }
+  await interaction.deferReply({ flags: MessageFlags.Ephemeral })
 
-  await interaction.reply({
-    content: `-# > ⏰ Next loot drop is in \`${
-      RUNNING
-        ? prettyMilliseconds(END - Date.now(), {
-            verbose: true
-          })
-        : "N/A"
-    }\``,
-    flags: MessageFlags.Ephemeral
-  })
+  await interaction.editReply({ content: `-# > ${DropZone.TIME}` })
 }
 
 export { create, invoke }

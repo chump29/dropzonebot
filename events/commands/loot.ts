@@ -4,63 +4,69 @@ import {
   type APIEmbedField,
   type ChatInputCommandInteraction,
   EmbedBuilder,
+  type HexColorString,
+  InteractionContextType,
   MessageFlags,
-  PermissionFlagsBits,
   type RESTPostAPIChatInputApplicationCommandsJSONBody,
   SlashCommandBuilder
 } from "discord.js"
 
-import { checkRate } from "@postfmly/checkrate"
-import { info } from "@postfmly/logger"
+import { bucket } from "../../utils/bucket.ts"
+import { DropZone, type ILoot } from "../../utils/dropzone.ts"
+import { env } from "../../utils/env.ts"
 
-import { type ILoot } from "../../db/schema.ts"
-import { LOOT } from "../../utils/loadTimer.ts"
-
-const create = (): RESTPostAPIChatInputApplicationCommandsJSONBody => {
-  return new SlashCommandBuilder()
+const create = (): RESTPostAPIChatInputApplicationCommandsJSONBody =>
+  new SlashCommandBuilder()
     .setName(parse(import.meta.file).name)
-    .setDescription("List loot")
-    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
+    .setDescription("Show loot")
+    .setContexts(InteractionContextType.Guild)
     .toJSON()
-}
 
-const getFields = async (): Promise<APIEmbedField[]> => {
+const getEmbed = (loot: ILoot[]): APIEmbedField[] => {
   const fields: APIEmbedField[] = [
     {
       name: "_ _",
       value: ""
     } as APIEmbedField
   ]
-  LOOT.sort((a: ILoot, b: ILoot): number => a.min - b.min).forEach((item: ILoot): void => {
-    const cost: string = item.min === item.max ? item.min.toString() : `${item.min} - $${item.max}`
+  if (loot.length > 0) {
+    fields.push(
+      ...loot.map(
+        (item: ILoot): APIEmbedField =>
+          ({
+            inline: true,
+            name: item.name,
+            value: "$item.min - $item.max"
+          }) as APIEmbedField
+      )
+    )
+  } else {
     fields.push({
-      inline: true,
-      name: item.name,
-      value: `-# $${cost}`
+      name: "🚫  Nothing to show",
+      value: ""
     } as APIEmbedField)
-  })
+  }
   return fields
 }
 
 const invoke = async (interaction: ChatInputCommandInteraction): Promise<void> => {
-  if (await checkRate(interaction)) {
+  await interaction.deferReply({ flags: MessageFlags.Ephemeral })
+
+  if (!bucket.allow(interaction.user.username)) {
+    await interaction.editReply({ content: "-# > ❌ Rate limit exceeded" })
+
     return
   }
 
-  await interaction.reply({
-    flags: MessageFlags.Ephemeral,
+  await interaction.editReply({
     embeds: [
       new EmbedBuilder()
-        .setColor("#78866b")
-        .setTitle(`💰  ${Bun.env.NAME} Loot  💰`)
-        .setFields(await getFields())
+        .setColor(env.COLOR as HexColorString)
+        .setTitle("💰 DropZone Loot")
+        .setFields(getEmbed(DropZone.LOOT))
         .toJSON()
     ]
   })
-
-  if (Bun.env.DEBUG) {
-    info("Listed loot")
-  }
 }
 
 export { create, invoke }

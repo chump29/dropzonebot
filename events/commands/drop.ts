@@ -2,37 +2,29 @@ import { parse } from "node:path"
 
 import {
   type ChatInputCommandInteraction,
-  type InteractionResponse,
+  InteractionContextType,
   MessageFlags,
   PermissionFlagsBits,
   type RESTPostAPIChatInputApplicationCommandsJSONBody,
   SlashCommandBuilder
 } from "discord.js"
 
-import { info } from "@postfmly/logger"
+import { DropZone } from "../../utils/dropzone.ts"
 
-import { dropLoot } from "../../utils/loadTimer.ts"
-
-const create = (): RESTPostAPIChatInputApplicationCommandsJSONBody => {
-  return new SlashCommandBuilder()
+const create = (): RESTPostAPIChatInputApplicationCommandsJSONBody =>
+  new SlashCommandBuilder()
     .setName(parse(import.meta.file).name)
     .setDescription("Drop loot")
+    .setContexts(InteractionContextType.Guild)
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .toJSON()
-}
 
 const invoke = async (interaction: ChatInputCommandInteraction): Promise<void> => {
-  await dropLoot(true).then(
-    async (): Promise<InteractionResponse> =>
-      await interaction.reply({
-        content: "-# > 💰 Loot dropped",
-        flags: MessageFlags.Ephemeral
-      })
-  )
+  await interaction.deferReply({ flags: MessageFlags.Ephemeral })
 
-  if (Bun.env.DEBUG) {
-    info("Loot dropped")
-  }
+  await DropZone.drop()
+
+  await interaction.editReply({ content: "-# > 💰 Loot dropped" })
 }
 
 export { create, invoke }

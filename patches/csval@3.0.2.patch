@@ -1,0 +1,12 @@
+diff --git a/src/validate.js b/src/validate.js
+index b41bdebd6fc2ba7ecffc09f8d433fa809ce0e1f9..7abe8d37b620f9e6ad704fe03e19e231dfa01898 100644
+--- a/src/validate.js
++++ b/src/validate.js
+@@ -1,6 +1,6 @@
+ import Ajv from "ajv";
+ 
+-const ajv = new Ajv.default({ allErrors: true, coerceTypes: true });
++const ajv = new Ajv.default({ allErrors: true, coerceTypes: true, $data: true });
+ 
+ /**
+  * Validates parsed CSV data against provided JSON schema rules.

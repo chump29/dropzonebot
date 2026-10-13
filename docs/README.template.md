@@ -4,16 +4,23 @@
 
 ---
 
-![Biome](https://img.shields.io/badge/Biome-$_biome-informational?style=plastic&logo=biome) &nbsp;
 ![Bun](https://img.shields.io/badge/Bun-$_bun-informational?style=plastic&logo=bun) &nbsp;
 ![discord.js](https://img.shields.io/badge/discord.js-$_discord-informational?style=plastic&logo=discord.js) &nbsp;
-![Drizzle](https://img.shields.io/badge/Drizzle-$_drizzle-informational?style=plastic&logo=drizzle) &nbsp;
+![Drizzle](https://img.shields.io/badge/Drizzle-$_drizzle-informational?style=plastic&logo=drizzle)
 ![SQLite](https://img.shields.io/badge/SQLite-$_sqlite-informational?style=plastic&logo=sqlite)
 
-![CodeQL](https://github.com/chump29/dropzonebot/workflows/CodeQL/badge.svg) &nbsp;
+![CodeQL](https://github.com/$_user/$_repo/workflows/CodeQL/badge.svg) &nbsp;
 ![Coverage](https://img.shields.io/badge/Coverage-$_coverage%25-success?style=plastic&logo=jest)
 
-![License](https://img.shields.io/github/license/chump29/dropzonebot?style=plastic&color=blueviolet&label=License&logo=gplv3)
+![NO AI](https://img.shields.io/badge/NO-AI-orange?style=plastic "NO AI") &nbsp;
+![License](https://img.shields.io/github/license/$_user/$_repo?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp; <!-- markdownlint-disable MD013 -->
+![CVE Scan](https://img.shields.io/badge/CVE%20Scan-Pass-success?style=plastic&logo=owasp "CVE Scan")
+
+---
+
+### What it does: <!-- markdownlint-disable-line MD001 -->
+
+- Drops loot
 
 ---
 
@@ -38,76 +45,15 @@
 
 #### Commands:
 
-|      📋 Task       |   🔧 Command    | ⚙️ Permission |
-|:------------------:|:---------------:|:-------------:|
-|     Drop Loot      |     `/drop`     | Administrator |
-|        Info        |     `/info`     | SendMessages  |
-|  Show Leaderboard  | `/leaderboard`  | SendMessages  |
-|   List All Loot    |     `/loot`     | SendMessages  |
-|        Ping        |     `/ping`     | SendMessages  |
-| Reload DB from CSV |    `/reload`    | Administrator |
-|  Reset All Scores  |    `/reset`     | Administrator |
-|  Reset User Score  | `/reset [user]` | Administrator |
-|    Start Timer     |    `/start`     | Administrator |
-|    Timer Status    |    `/status`    | Administrator |
-|     Stop Timer     |     `/stop`     | Administrator |
-
----
-
-### 🛠️ Environment Management
-
-#### NPM ([Bun](https://github.com/oven-sh/bun "Bun") toolkit):
-
-| 📋 Task |  🔧 Command   |
-|:-------:|:-------------:|
-| Upgrade | `bun upgrade` |
-
----
-
-### 📦 Dependency Management
-
-#### Installation & Removal:
-
-|        📋 Task         |            🔧 Command (Full)             |           🔧 Command (Short)           |
-|:----------------------:|:----------------------------------------:|:--------------------------------------:|
-|      Install DEV       |              `bun install`               |                `bun i`                 |
-|      Install PROD      |        `bun install --production`        |               `bun i -p`               |
-|     Add dependency     |      `bun add [package][@version]`       |      `bun a [package][@version]`       |
-|   Add devDependency    | `bun add --save-dev [package][@version]` |     `bun a -d [package][@version]`     |
-| Add optionalDependency | `bun add --optional [package][@version]` | `bun a --optional [package][@version]` |
-|   Add peerDependency   |   `bun add --peer [package][@version]`   |   `bun a --peer [package][version]`    |
-|       Add Global       |  `bun add --global [package][@version]`  |     `bun a -g [package][@version]`     |
-|   Remove Dependency    |          `bun remove [package]`          |           `bun r [package]`            |
-
-#### Maintenance & Quality:
-
-|     📋 Task     |   🔧 Command (Full)    | 🔧 Command (Short)  |
-|:---------------:|:----------------------:|:-------------------:|
-|  Check Updates  |     `bun outdated`     |       &mdash;       |
-|   Update All    |      `bun update`      |       &mdash;       |
-| Update Specific | `bun update [package]` |       &mdash;       |
-| Security Audit  |      `bun audit`       |       &mdash;       |
-|  Package Info   |  `bun info [package]`  |       &mdash;       |
-|   Run Script    |   `bun run [script]`   |   `bun [script]`    |
-|      List       |       `bun list`       |       &mdash;       |
-|   List Extra    |    `bun list --all`    |       &mdash;       |
-|    Hierarchy    | `bun pm why [package]` | `bun why [package]` |
-
----
-
-### 🧪 Development
-
-#### Scripts:
-
-|    📋 Task     |  🔧 Command (Full)   | 🔧 Command (Short) |
-|:--------------:|:--------------------:|:------------------:|
-| Lint All (DEV) |    `bun run lint`    |     `bun lint`     |
-| Lint All (CI)  |  `bun run lint:ci`   |   `bun lint:ci`    |
-|   Lint Biome   | `bun run lint:biome` |  `bun lint:biome`  |
-|    Lint ENV    |  `bun run lint:env`  |   `bun lint:env`   |
-|    Run DEV     |    `bun run dev`     |     `bun dev`      |
-|    Run PROD    |    `bun run prod`    |     `bun prod`     |
-|      Test      |    `bun run test`    |      &mdash;       |
+|     📋 Task      |      🔧 Command       | ⚙️ Permission |
+|:----------------:|:---------------------:|:-------------:|
+|    Drop Loot     |        `/drop`        | Administrator |
+|       Info       |        `/info`        |     None      |
+| Show Leaderboard |    `/leaderboard`     |     None      |
+|  List All Loot   |        `/loot`        |     None      |
+|       Ping       |        `/ping`        |     None      |
+|   Reset Scores   | `/reset <@user\|all>` | Administrator |
+|      Status      |       `/status`       | Administrator |
 
 ---
 
@@ -115,35 +61,41 @@
 
 #### Environment Variables:
 
-|   📝 Description   | 📌 Variable |  {...} Value   |
-|:------------------:|:-----------:|:--------------:|
-|  Autostart Timer   |  AUTOSTART  | **true**/false |
-| Message Channel ID | CHANNEL_ID  |  [channel id]  |
-|      DB Name       |   DB_NAME   | dropzonebot.db |
-|      DB Path       |   DB_PATH   |     ./db/      |
-|     Loot Emoji     |    EMOJI    |       💰       |
-|       Debug        |  IS_DEBUG   | true/**false** |
-|      Logo URL      |  LOGO_URL   |     [url]      |
-|    Maximum Time    |  MAX_TIME   |       3h       |
-|    Minimum Time    |  MIN_TIME   |       1h       |
-|      Bot Name      |    NAME     |  DropZoneBot   |
-|    Loot Timeout    |   TIMEOUT   |       1m       |
-|     Bot Token      |    TOKEN    |    [token]     |
+|             📝 Description             | 📌 Variable |  {...} Value   |
+|:--------------------------------------:|:-----------:|:--------------:|
+|                Activity                |  ACTIVITY   |    Dropping    |
+|               Channel ID               | CHANNEL_ID  |     \<id>      |
+|        Embed Color<sup>1</sup>         |    COLOR    |    #78866b     |
+|                DB Name                 |   DB_NAME   | dropzonebot.db |
+|                DB Path                 |   DB_PATH   |     ./db/      |
+|               Loot Emoji               |    EMOJI    |       💰       |
+|                 Debug                  |    DEBUG    | true/**false** |
+|    Maximum Drop Time<sup>2,3</sup>     |  MAX_TIME   |       3h       |
+|     Minimum Drop Time<sup>2</sup>      |  MIN_TIME   |       1h       |
+|                Bot Name                |    NAME     |  DropZoneBot   |
+| Claim Timeout (in minutes)<sup>4</sup> |   TIMEOUT   |       1        |
+|               Bot Token                |    TOKEN    |    \<token>    |
+
+###### <sup>1</sup> #RRGGBB format <!-- markdownlint-disable-line MD001 -->
+
+###### <sup>2</sup> 1-59m | 1-6h format
+
+###### <sup>3</sup> Must be >= `MIN_TIME`
+
+###### <sup>4</sup> Must be >= 1
 
 ##### From `@postfmly/logoserver`:
 
 | 📝 Description | 📌 Variable |    {...} Value    |
 |:--------------:|:-----------:|:-----------------:|
-|   IPv4/IPv6    |  LOGO_IPv6  |  true/**false**   |
-|   Logo Name    |  LOGO_NAME  |    [filename]     |
-|   Local Path   |  LOGO_PATH  |      [path]       |
+|   Logo Name    |  LOGO_NAME  | dropzonebot.webp  |
+|   Local Path   |  LOGO_PATH  |  ./utils/images   |
 |      Port      |  LOGO_PORT  | **Random**/[port] |
+|    Logo URL    |  LOGO_URL   |      \<url>       |
 
 ##### From `@postfmly/checkrate`:
 
-| 📝 Description | 📌 Variable | {...} Value |
-|:--------------:|:-----------:|:-----------:|
-|   Rate Limit   |    RATE     |     1s      |
+###### *NOTE: Rate limited to 1 request per 1 second*
 
 #### Deployment:
 
@@ -154,20 +106,28 @@
 
 ---
 
-### 📃 CSV
+### 📃 Loot
+
+`loot.csv`
+
+##### - `name` is Item Name <!-- markdownlint-disable-line MD001 -->
+
+##### - `min` is Minimum Loot Value
+
+##### - `max` is Maximum Loot Value
 
 ```csv
 name,min,max
 Loot Item,100,200
 ```
 
-- *NOTES:*
+###### *NOTES:*
 
-  - `min` and `max` must be integers
+###### - *`name` length must be >= 2*
 
-  - `max` must be >= `min`
+###### - *`min` must be > 0*
 
-  - `name` length must be >= 3
+###### - *`max` must be >= `min`*
 
 ---
 

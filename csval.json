@@ -1,5 +1,6 @@
 {
   "$comment": "https://ajv.js.org/",
+  "required": ["max", "min", "name"],
   "properties": {
     "max": {
       "type": "integer",
@@ -12,13 +13,8 @@
       "type": "integer"
     },
     "name": {
-      "minLength": 3,
+      "minLength": 2,
       "type": "string"
     }
-  },
-  "required": [
-    "max",
-    "min",
-    "name"
-  ]
+  }
 }
