@@ -132,8 +132,8 @@ class DropZoneBot implements IDropZoneBot {
   async init(client: Client): Promise<void> {
     this.LOOT = (await csvToJson
       .formatValueByType(true)
-      .mapRows((row) => {
-        row.name = titleCase((row.name as string).trim())
+      .mapRows((row: ILoot): ILoot => {
+        row.name = titleCase(row.name.trim())
 
         return row
       })
