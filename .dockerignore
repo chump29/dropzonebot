@@ -6,6 +6,7 @@
 !events/
 !healthcheck.sh
 !index.ts
+!loot.csv
 !package.json
 !patches/
 !tsconfig.json
