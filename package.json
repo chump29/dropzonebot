@@ -70,6 +70,7 @@
     "envalid": "^8.2.0",
     "magic-regexp": "^0.11.2",
     "pretty-ms": "^9.3.1",
+    "title-case": "^4.3.2",
     "ts-pattern": "^5.9.1",
     "unique-random": "^4.0.0",
     "valibot": "^1.5.0"

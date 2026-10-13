@@ -17,6 +17,7 @@ import {
   type User
 } from "discord.js"
 import { default as pretty } from "pretty-ms"
+import { titleCase } from "title-case"
 import { exhaustiveUniqueRandom } from "unique-random"
 
 import { DB } from "./db.ts"
@@ -57,11 +58,7 @@ class DropZoneBot implements IDropZoneBot {
   }
 
   private static getRandom(min: number, max: number): number {
-    // ! NOTE: min is string at runtime
-    const minimum: number = Number(min)
-    const maximum: number = Number(max)
-
-    return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum
+    return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
   async drop(): Promise<void> {
@@ -133,8 +130,14 @@ class DropZoneBot implements IDropZoneBot {
   }
 
   async init(client: Client): Promise<void> {
-    this.LOOT = (await csvToJson.getJsonFromCsvAsync("loot.csv")) as ILoot[]
+    this.LOOT = (await csvToJson
+      .formatValueByType(true)
+      .mapRows((row) => {
+        row.name = titleCase((row.name as string).trim())
 
+        return row
+      })
+      .getJsonFromCsvAsync("loot.csv")) as ILoot[]
     if (this.COUNT === 0) {
       throw new Error("No loot found")
     }
