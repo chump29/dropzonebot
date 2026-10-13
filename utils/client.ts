@@ -64,7 +64,7 @@ class DropZoneClient implements IDropZoneClient {
     this.CLIENT =
       testClient ??
       new DiscordClient({
-        intents: [GatewayIntentBits.Guilds],
+        intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessages],
         presence: {
           activities: [
             {

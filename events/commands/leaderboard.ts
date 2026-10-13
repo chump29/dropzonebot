@@ -50,7 +50,7 @@ const getEmbed = (points: IPoints[]): APIEmbedField[] => {
       fields.push({
         inline: true,
         name: `${i === 0 ? "👑 " : ""}${ordinal(i + 1)}: ${p.name}`,
-        value: `-# ${p.points}`
+        value: `-# $${p.points.toLocaleString()}`
       } as APIEmbedField)
     })
   } else {

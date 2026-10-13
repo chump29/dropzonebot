@@ -36,7 +36,7 @@ const getEmbed = (loot: ILoot[]): APIEmbedField[] => {
           ({
             inline: true,
             name: item.name,
-            value: "$item.min - $item.max"
+            value: `-# $${item.min === item.max ? item.min.toLocaleString() : `${item.min.toLocaleString()} - $${item.max.toLocaleString()}`}`
           }) as APIEmbedField
       )
     )
@@ -63,7 +63,7 @@ const invoke = async (interaction: ChatInputCommandInteraction): Promise<void> =
       new EmbedBuilder()
         .setColor(env.COLOR as HexColorString)
         .setTitle("💰 DropZone Loot")
-        .setFields(getEmbed(DropZone.LOOT))
+        .setFields(getEmbed(DropZone.LOOT.toSorted((a: ILoot, b: ILoot): number => b.max - a.max || b.min - a.min)))
         .toJSON()
     ]
   })

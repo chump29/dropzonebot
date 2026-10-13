@@ -57,7 +57,11 @@ class DropZoneBot implements IDropZoneBot {
   }
 
   private static getRandom(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min
+    // ! NOTE: min is string at runtime
+    const minimum: number = Number(min)
+    const maximum: number = Number(max)
+
+    return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum
   }
 
   async drop(): Promise<void> {
@@ -87,14 +91,14 @@ class DropZoneBot implements IDropZoneBot {
       const points: number = DropZoneBot.getRandom(loot.min, loot.max)
 
       await this.CHANNEL.send({
-        content: `-# > **Congratulations, \`${user.displayName}\`!  ✨  You found \`${loot.name}\` for \`$${points}\`**`,
+        content: `-# > **Congratulations, \`${user.displayName}\`!  ✨  You found \`${loot.name}\` for \`$${points.toLocaleString()}\`**`,
         flags: MessageFlags.SuppressNotifications
       })
 
       await DB.updatePoints(user.displayName, points)
 
       if (env.DEBUG) {
-        info(`${user.displayName} claimed ${loot.name} for $${points}`)
+        info(`${user.displayName} claimed ${loot.name} for $${points.toLocaleString()}`)
       }
 
       this.handleNewTime()
