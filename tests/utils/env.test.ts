@@ -9,13 +9,13 @@ import { env } from "../../utils/env.ts"
 
 describe("env", (): void => {
   test("ACTIVITY", (): void => {
-    expectTypeOf(env.ACTIVITY).toEqualTypeOf<string>()
+    expect(env.ACTIVITY).toBeString()
 
     expect(env.ACTIVITY.length).toBeGreaterThan(0)
   })
 
   test("CHANNEL_ID", (): void => {
-    expectTypeOf(env.CHANNEL_ID).toEqualTypeOf<string>()
+    expect(env.CHANNEL_ID).toBeString()
 
     expect(env.CHANNEL_ID.length).toBeGreaterThan(0)
   })
@@ -29,37 +29,37 @@ describe("env", (): void => {
   })
 
   test("DB_NAME", (): void => {
-    expectTypeOf(env.DB_NAME).toEqualTypeOf<string>()
+    expect(env.DB_NAME).toBeString()
 
     expect(env.DB_NAME).toBe("dropzonebot.test.db")
   })
 
   test("DB_PATH", (): void => {
-    expectTypeOf(env.DB_PATH).toEqualTypeOf<string>()
+    expect(env.DB_PATH).toBeString()
 
     expect(env.DB_PATH).toBe("./db")
   })
 
   test("DEBUG", (): void => {
-    expectTypeOf(env.DEBUG).toEqualTypeOf<boolean>()
+    expect(env.DEBUG).toBeBoolean()
 
     expect(env.DEBUG).toBeTrue()
   })
 
   test("EMOJI", (): void => {
-    expectTypeOf(env.EMOJI).toEqualTypeOf<string>()
+    expect(env.EMOJI).toBeString()
 
     expect(env.EMOJI.length).toBeGreaterThan(0)
   })
 
   test("LOGO_NAME", (): void => {
-    expectTypeOf(env.LOGO_NAME).toEqualTypeOf<string>()
+    expect(env.LOGO_NAME).toBeString()
 
     expect(env.LOGO_NAME.length).toBeGreaterThan(0)
   })
 
   test("LOGO_PATH", (): void => {
-    expectTypeOf(env.LOGO_PATH).toEqualTypeOf<string>()
+    expect(env.LOGO_PATH).toBeString()
 
     expect(env.LOGO_PATH.length).toBeGreaterThan(0)
   })
@@ -71,37 +71,41 @@ describe("env", (): void => {
   })
 
   test("LOGO_URL", (): void => {
-    expectTypeOf(env.LOGO_URL).toEqualTypeOf<string>()
+    expect(env.LOGO_URL).toBeString()
 
     expect(env.LOGO_URL.length).toBeGreaterThan(0)
   })
 
   test("MAX_TIME", (): void => {
-    expectTypeOf(env.MAX_TIME).toEqualTypeOf<string>()
+    expect(env.MAX_TIME).toBeString()
 
     expect(env.MAX_TIME.length).toBeGreaterThan(0)
   })
 
   test("MIN_TIME", (): void => {
-    expectTypeOf(env.MIN_TIME).toEqualTypeOf<string>()
+    expect(env.MIN_TIME).toBeString()
 
     expect(env.MIN_TIME.length).toBeGreaterThan(0)
   })
 
   test("NAME", (): void => {
-    expectTypeOf(env.NAME).toEqualTypeOf<string>()
+    expect(env.NAME).toBeString()
 
     expect(env.NAME.length).toBeGreaterThan(0)
   })
 
+  test("TEST_FULL", (): void => {
+    expect(env.TEST_FULL).toBeBoolean()
+  })
+
   test("TIMEOUT", (): void => {
-    expectTypeOf(env.TIMEOUT).toEqualTypeOf<number>()
+    expect(env.TIMEOUT).toBeNumber()
 
     expect(env.TIMEOUT).toBeGreaterThan(0)
   })
 
   test("TOKEN", (): void => {
-    expectTypeOf(env.TOKEN).toEqualTypeOf<string>()
+    expect(env.TOKEN).toBeString()
 
     expect(env.TOKEN.length).toBeGreaterThan(0)
   })

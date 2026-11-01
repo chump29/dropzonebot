@@ -28,6 +28,10 @@ import { DB } from "../../utils/db.ts"
 import { DropZone } from "../../utils/dropzone.ts"
 import { env } from "../../utils/env.ts"
 
+if (!env.TEST_FULL) {
+  spyOn(console, "info").mockImplementation((): void => undefined)
+}
+
 const HEX_BASE = 16
 const COLOR_LEN = 6
 const decimalToHex = (c: Optional<number>): string => (c ? `#${c.toString(HEX_BASE).padStart(COLOR_LEN, "0")}` : "N/A")
@@ -35,9 +39,6 @@ const decimalToHex = (c: Optional<number>): string => (c ? `#${c.toString(HEX_BA
 const dir = "events/commands"
 
 const commands = (await readdir(dir)).filter((file: string): boolean => file.endsWith(".ts"))
-
-// * NOTE: suppress console output
-spyOn(console, "info").mockImplementation((): void => undefined)
 
 const mockOnCollect = mock<ReactionCollector["on"]>()
 

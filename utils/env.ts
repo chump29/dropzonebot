@@ -130,6 +130,7 @@ const env = cleanEnv(Bun.env, {
   MAX_TIME: minMaxTimeValidator({ default: "3h" }),
   MIN_TIME: minMaxTimeValidator({ default: "1h" }),
   NAME: str({ default: "DropZoneBot" }),
+  TEST_FULL: bool({ default: false }),
   TIMEOUT: timeoutValidator({ default: 1 }),
   TOKEN: tokenValidator({ testDefault: fakeToken })
 })
