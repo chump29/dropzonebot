@@ -43,7 +43,7 @@
     "sql": "drizzle-kit generate",
     "test": "bun test --isolate --dots --preload ./tests/setup.ts --bail --check",
     "test:coverage": "bun test --isolate --dots --coverage-dir ./tests/coverage --coverage-reporter=text --coverage-reporter=lcov --preload ./tests/setup.ts --bail --check",
-    "test:coverage:full": "TEST_FULL=true bun test --isolate --coverage-dir ./tests/coverage --coverage-reporter=text --coverage-reporter=lcov --preload ./tests/setup.ts --bail",
+    "test:coverage:full": "TEST_FULL=true bun test --isolate --coverage-dir ./tests/coverage --coverage-reporter=text --coverage-reporter=lcov --preload ./tests/setup.ts --bail --check",
     "test:full": "TEST_FULL=true bun test --isolate --preload ./tests/setup.ts --bail --check",
     "updates": "bunx --bun npm-check-updates --dep prod,dev --cooldown 0 --install never --packageManager bun --peer"
   },
