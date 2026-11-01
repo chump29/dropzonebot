@@ -1,16 +1,16 @@
-# ![DropZoneBot](./utils/images/dropzonebot.webp) DropZoneBot
+# ![DropZoneBot](./utils/images/dropzonebot.webp "DropZoneBot") DropZoneBot
 
 > - DropZoneBot for Discord
 
 ---
 
-![Bun](https://img.shields.io/badge/Bun-1.4.3-informational?style=plastic&logo=bun) &nbsp;
-![discord.js](https://img.shields.io/badge/discord.js-^14.27.0-informational?style=plastic&logo=discord.js) &nbsp;
-![Drizzle](https://img.shields.io/badge/Drizzle-1.0.0--rc.4-informational?style=plastic&logo=drizzle)
+![Bun](https://img.shields.io/badge/Bun-1.4.4-informational?style=plastic&logo=bun) &nbsp;
+![discord.js](https://img.shields.io/badge/discord.js-14.28.0-informational?style=plastic&logo=discord.js) &nbsp;
+![Drizzle](https://img.shields.io/badge/Drizzle-1.0.0--rc.5-informational?style=plastic&logo=drizzle)
 ![SQLite](https://img.shields.io/badge/SQLite-3.53.4-informational?style=plastic&logo=sqlite)
 
 ![CodeQL](https://github.com/chump29/dropzonebot/workflows/CodeQL/badge.svg) &nbsp;
-![Coverage](https://img.shields.io/badge/Coverage-80.65%25-success?style=plastic&logo=jest)
+![Coverage](https://img.shields.io/badge/Coverage-78.7%25-success?style=plastic&logo=jest)
 
 ![NO AI](https://img.shields.io/badge/NO-AI-orange?style=plastic "NO AI") &nbsp;
 ![License](https://img.shields.io/github/license/chump29/dropzonebot?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp; <!-- markdownlint-disable MD013 -->
@@ -35,7 +35,7 @@
 #### Role Permissions:
 
 |   ⚙️ Permission    |
-|:------------------:|
+| :----------------: |
 |    ViewChannel     |
 |    SendMessages    |
 |     EmbedLinks     |
@@ -46,7 +46,7 @@
 #### Commands:
 
 |     📋 Task      |      🔧 Command       | ⚙️ Permission |
-|:----------------:|:---------------------:|:-------------:|
+| :--------------: | :-------------------: | :-----------: |
 |    Drop Loot     |        `/drop`        | Administrator |
 |       Info       |        `/info`        |     None      |
 | Show Leaderboard |    `/leaderboard`     |     None      |
@@ -62,7 +62,7 @@
 #### Environment Variables:
 
 |             📝 Description             | 📌 Variable |  {...} Value   |
-|:--------------------------------------:|:-----------:|:--------------:|
+| :------------------------------------: | :---------: | :------------: |
 |                Activity                |  ACTIVITY   |    Dropping    |
 |               Channel ID               | CHANNEL_ID  |     \<id>      |
 |        Embed Color<sup>1</sup>         |    COLOR    |    #78866b     |
@@ -87,7 +87,7 @@
 ##### From `@postfmly/logoserver`:
 
 | 📝 Description | 📌 Variable |    {...} Value    |
-|:--------------:|:-----------:|:-----------------:|
+| :------------: | :---------: | :---------------: |
 |   Logo Name    |  LOGO_NAME  | dropzonebot.webp  |
 |   Local Path   |  LOGO_PATH  |  ./utils/images   |
 |      Port      |  LOGO_PORT  | **Random**/[port] |
@@ -95,12 +95,12 @@
 
 ##### From `@postfmly/checkrate`:
 
-###### *NOTE: Rate limited to 1 request per 1 second*
+###### _NOTE: Rate limited to 1 request per 1 second_
 
 #### Deployment:
 
 |  📜 Script  |  🔧 Command   |
-|:-----------:|:-------------:|
+| :---------: | :-----------: |
 |    Full     | `./build.sh`  |
 | Docker Only | `./docker.sh` |
 
@@ -121,13 +121,13 @@ name,min,max
 Loot Item,100,200
 ```
 
-###### *NOTES:*
+###### _NOTES:_
 
-###### - *`name` length must be >= 2*
+###### - _`name` length must be >= 2_
 
-###### - *`min` must be > 0*
+###### - _`min` must be > 0_
 
-###### - *`max` must be >= `min`*
+###### - _`max` must be >= `min`_
 
 ---
 

@@ -1,5 +1,8 @@
+/** biome-ignore-all lint/nursery/useLowercaseTestTitle: using env names */
+
 import { describe, expect, test } from "bun:test"
 
+import { type HexColorString } from "discord.js"
 import { expectTypeOf } from "expect-type"
 
 import { env } from "../../utils/env.ts"
@@ -18,9 +21,9 @@ describe("env", (): void => {
   })
 
   test("COLOR", (): void => {
-    expectTypeOf(env.COLOR).toEqualTypeOf<string>()
+    expectTypeOf(env.COLOR).toEqualTypeOf<HexColorString>()
 
-    const LEN: number = 7
+    const LEN = 7
 
     expect(env.COLOR).toHaveLength(LEN)
   })

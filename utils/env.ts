@@ -1,10 +1,12 @@
 import { type Optional } from "@postfmly/types"
 
-import { bool, cleanEnv, type ExactValidator, makeExactValidator, str, url } from "envalid"
+import { type HexColorString } from "discord.js"
+import { bool, cleanEnv, makeExactValidator, str, url } from "envalid"
 import { anyOf, caseInsensitive, charIn, createRegExp, exactly, wordChar } from "magic-regexp"
 import {
   digits,
   emoji,
+  guard,
   integer,
   literal,
   maxLength,
@@ -21,31 +23,33 @@ import {
   union
 } from "valibot"
 
-const COLOR_LEN: number = 6
+const COLOR_LEN = 6
 
-const MIN_ID_LEN: number = 17
-const MAX_ID_LEN: number = 19
+const MIN_ID_LEN = 17
+const MAX_ID_LEN = 19
 
-const MIN_PORT: number = 1024
-const MAX_PORT: number = 65_535
+const MIN_PORT = 1024
+const MAX_PORT = 65_535
 
-const UID_MIN_LEN: number = 23
-const UID_MAX_LEN: number = 28
-const TS_MIN_LEN: number = 6
-const TS_MAX_LEN: number = 7
-const HMAC_MIN_LEN: number = 27
-const HMAC_MAX_LEN: number = 38
+const UID_MIN_LEN = 23
+const UID_MAX_LEN = 28
+const TS_MIN_LEN = 6
+const TS_MAX_LEN = 7
+const HMAC_MIN_LEN = 27
+const HMAC_MAX_LEN = 38
 
 const StringSchema = pipe(string(), trim(), nonEmpty())
 const IdSchema = pipe(StringSchema, digits(), minLength(MIN_ID_LEN), maxLength(MAX_ID_LEN))
 const ColorSchema = pipe(
   StringSchema,
   regex(
-    // ! Desired: /^(?:#[\da-f]{6})$/i
-    createRegExp(exactly("#").and(charIn("0123456789abcdef").times(COLOR_LEN)).at.lineStart().at.lineEnd(), [
-      caseInsensitive
-    ])
-  )
+    createRegExp(
+      exactly("#").at.lineStart(),
+      charIn.from("0", "9").orChar.from("a", "f").times(COLOR_LEN).at.lineEnd(),
+      [caseInsensitive]
+    )
+  ),
+  guard((_: string): _ is HexColorString => true)
 )
 const EmojiSchema = pipe(StringSchema, emoji())
 const MinMaxTimeSchema = pipe(
@@ -85,19 +89,13 @@ const TokenSchema = pipe(
   )
 )
 
-const idValidator: ExactValidator<string> = makeExactValidator<string>((s: string): string => parse(IdSchema, s))
-const colorValidator: ExactValidator<string> = makeExactValidator<string>((s: string): string => parse(ColorSchema, s))
-const emojiValidator: ExactValidator<string> = makeExactValidator<string>((s: string): string => parse(EmojiSchema, s))
-const minMaxTimeValidator: ExactValidator<string> = makeExactValidator<string>((s: string): string =>
-  parse(MinMaxTimeSchema, s)
-)
-const portValidator: ExactValidator<"random" | number> = makeExactValidator<"random" | number>(
-  (s: string): "random" | number => parse(PortSchema, s)
-)
-const timeoutValidator: ExactValidator<number> = makeExactValidator<number>((s: string): number =>
-  parse(TimeoutSchema, s)
-)
-const tokenValidator: ExactValidator<string> = makeExactValidator<string>((s: string): string => parse(TokenSchema, s))
+const idValidator = makeExactValidator<string>((s: string): string => parse(IdSchema, s))
+const colorValidator = makeExactValidator<HexColorString>((s: string): HexColorString => parse(ColorSchema, s))
+const emojiValidator = makeExactValidator<string>((s: string): string => parse(EmojiSchema, s))
+const minMaxTimeValidator = makeExactValidator<string>((s: string): string => parse(MinMaxTimeSchema, s))
+const portValidator = makeExactValidator<"random" | number>((s: string): "random" | number => parse(PortSchema, s))
+const timeoutValidator = makeExactValidator<number>((s: string): number => parse(TimeoutSchema, s))
+const tokenValidator = makeExactValidator<string>((s: string): string => parse(TokenSchema, s))
 
 let fakeId: Optional<string>
 let fakeURL: Optional<string>
@@ -106,7 +104,7 @@ let fakeToken: Optional<string>
 if (Bun.env.NODE_ENV === "test") {
   const { fakerEN_US: fake } = await import("@faker-js/faker")
 
-  let chars: string = "[0-9]"
+  let chars = "[0-9]"
   fakeId = fake.helpers.fromRegExp(`${chars}{${MIN_ID_LEN},${MAX_ID_LEN}}`)
 
   fakeURL = fake.image.url({ height: 64, width: 64 })

@@ -4,7 +4,6 @@ import {
   type APIEmbedField,
   type ChatInputCommandInteraction,
   EmbedBuilder,
-  type HexColorString,
   InteractionContextType,
   MessageFlags,
   type RESTPostAPIChatInputApplicationCommandsJSONBody,
@@ -25,13 +24,14 @@ const create = (): RESTPostAPIChatInputApplicationCommandsJSONBody =>
 const getEmbed = (loot: ILoot[]): APIEmbedField[] => {
   const fields: APIEmbedField[] = []
 
-  const allItems: string = loot.map((l: ILoot): string => `-# ${l.name}`).join("\n")
+  const allItems = loot.map((l: ILoot): string => `-# ${l.name}`).join("\n")
 
-  const allPoints: string = loot
-    .map(
-      (l: ILoot): string =>
-        `-# $${l.min === l.max ? l.min.toLocaleString() : `${l.min.toLocaleString()} - $${l.max.toLocaleString()}`}`
-    )
+  const allPoints = loot
+    .map((l: ILoot): string => {
+      const range = `${l.min.toLocaleString()} - $${l.max.toLocaleString()}`
+
+      return `-# $${l.min === l.max ? l.min.toLocaleString() : range}`
+    })
     .join("\n")
 
   fields.push(
@@ -46,7 +46,7 @@ const getEmbed = (loot: ILoot[]): APIEmbedField[] => {
         name: "Value",
         value: allPoints
       }
-    ] as APIEmbedField[])
+    ] satisfies APIEmbedField[])
   )
 
   return fields
@@ -64,7 +64,7 @@ const invoke = async (interaction: ChatInputCommandInteraction): Promise<void> =
   await interaction.editReply({
     embeds: [
       new EmbedBuilder()
-        .setColor(env.COLOR as HexColorString)
+        .setColor(env.COLOR)
         .setTitle("💰  DropZone Loot  💰")
         .setFields(getEmbed(DropZone.LOOT.toSorted((a: ILoot, b: ILoot): number => b.max - a.max || b.min - a.min)))
         .toJSON()

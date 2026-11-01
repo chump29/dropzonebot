@@ -15,9 +15,9 @@ import { env } from "./env.ts"
 type DBType = ReturnType<typeof drizzle>
 
 interface IDropZoneBotDatabase {
-  _db: Nullable<DBType>
   close: () => void
   getLeaderboard: () => Promise<IPoints[]>
+  instance: Nullable<DBType>
   open: () => void
   resetPoints: (name?: string) => Promise<void>
   updatePoints: (name: string, pts: number) => Promise<void>
@@ -25,10 +25,10 @@ interface IDropZoneBotDatabase {
 
 class DropZoneBotDatabase implements IDropZoneBotDatabase {
   private client: Nullable<Database> = null
-  _db: Nullable<DBType> = null
+  instance: Nullable<DBType> = null
 
   open(): void {
-    if (this._db) {
+    if (this.instance) {
       if (env.DEBUG) {
         info("⚠️  Database already open")
       }
@@ -36,7 +36,7 @@ class DropZoneBotDatabase implements IDropZoneBotDatabase {
       return
     }
 
-    const dbPathName: string = join(env.DB_PATH, env.DB_NAME)
+    const dbPathName = join(env.DB_PATH, env.DB_NAME)
 
     this.client = new Database(dbPathName, {
       create: true,
@@ -51,12 +51,12 @@ class DropZoneBotDatabase implements IDropZoneBotDatabase {
       PRAGMA wal_checkpoint(TRUNCATE);
     `)
 
-    this._db = drizzle({
+    this.instance = drizzle({
       client: this.client,
       jit: true
     })
 
-    migrate(this._db, {
+    migrate(this.instance, {
       migrationsFolder: env.DB_PATH
     })
 
@@ -66,7 +66,7 @@ class DropZoneBotDatabase implements IDropZoneBotDatabase {
   }
 
   close(): void {
-    if (!this._db) {
+    if (!this.instance) {
       if (env.DEBUG) {
         info("⚠️  Database already closed")
       }
@@ -77,7 +77,7 @@ class DropZoneBotDatabase implements IDropZoneBotDatabase {
     this.client?.close()
     this.client = null
 
-    this._db = null
+    this.instance = null
 
     if (env.DEBUG) {
       info("⏹️  Database closed")
@@ -85,11 +85,11 @@ class DropZoneBotDatabase implements IDropZoneBotDatabase {
   }
 
   private dbCheck(): DBType {
-    if (!this._db) {
+    if (!this.instance) {
       throw new Error("Database not open")
     }
 
-    return this._db
+    return this.instance
   }
 
   async updatePoints(name: string, pts: number): Promise<void> {
@@ -121,6 +121,4 @@ class DropZoneBotDatabase implements IDropZoneBotDatabase {
   }
 }
 
-const DB: IDropZoneBotDatabase = new DropZoneBotDatabase()
-
-export { DB }
+export const DB = new DropZoneBotDatabase()

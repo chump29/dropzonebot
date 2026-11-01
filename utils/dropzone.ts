@@ -1,21 +1,11 @@
 import { error, info } from "@postfmly/logger"
-import { type Nullable, type Optional } from "@postfmly/types"
 
 import { default as pluralize } from "@jarrodek/pluralize"
 import { parse as ms } from "@lukeed/ms"
 import { default as csvToJson } from "convert-csv-to-json"
 import { default as dayjs } from "dayjs"
 import { default as localizedFormat } from "dayjs/plugin/localizedFormat"
-import {
-  type Channel,
-  type Client,
-  type Message,
-  MessageFlags,
-  type MessageReaction,
-  type ReactionCollector,
-  type TextChannel,
-  type User
-} from "discord.js"
+import { ChannelType, type Client, MessageFlags, type MessageReaction, type TextChannel, type User } from "discord.js"
 import { default as pretty } from "pretty-ms"
 import { titleCase } from "title-case"
 import { exhaustiveUniqueRandom } from "unique-random"
@@ -62,7 +52,7 @@ class DropZoneBot implements IDropZoneBot {
   }
 
   async drop(): Promise<void> {
-    const message: Message = await this.CHANNEL.send({
+    const message = await this.CHANNEL.send({
       content: "✯ 𝕃𝕆𝕆𝕋 𝔻ℝ𝕆ℙ ✯", // cspell: disable-line
       flags: MessageFlags.SuppressNotifications
     })
@@ -71,21 +61,21 @@ class DropZoneBot implements IDropZoneBot {
 
     const filter = (reaction: MessageReaction, user: User): boolean => reaction.emoji.name === env.EMOJI && !user.bot
 
-    const collector: ReactionCollector = message.createReactionCollector({
+    const collector = message.createReactionCollector({
       filter,
       max: 1,
       time: ms(`${env.TIMEOUT}m`)
     })
 
     collector.on("collect", async (_: MessageReaction, user: User): Promise<void> => {
-      const loot: Optional<ILoot> = this.LOOT[this.random()]
+      const loot = this.LOOT[this.random()]
       if (!loot) {
         error("❌ Could not get loot")
 
         return
       }
 
-      const points: number = DropZoneBot.getRandom(loot.min, loot.max)
+      const points = DropZoneBot.getRandom(loot.min, loot.max)
 
       await this.CHANNEL.send({
         content: `-# > **Congratulations, \`${user.displayName}\`!  ✨  You found \`${loot.name}\` for \`$${points.toLocaleString()}\`**`,
@@ -114,7 +104,7 @@ class DropZoneBot implements IDropZoneBot {
   }
 
   private getRandomTime(): void {
-    this.NEW_TIME_MS = DropZoneBot.getRandom(ms(env.MIN_TIME) as number, ms(env.MAX_TIME) as number)
+    this.NEW_TIME_MS = DropZoneBot.getRandom(ms(env.MIN_TIME), ms(env.MAX_TIME))
 
     this.NEW_TIME = dayjs().add(this.NEW_TIME_MS, "ms")
   }
@@ -130,14 +120,14 @@ class DropZoneBot implements IDropZoneBot {
   }
 
   async init(client: Client): Promise<void> {
-    this.LOOT = (await csvToJson
+    this.LOOT = await csvToJson
       .formatValueByType(true)
       .mapRows((row: ILoot): ILoot => {
         row.name = titleCase(row.name.trim())
 
         return row
       })
-      .getJsonFromCsvAsync("loot.csv")) as ILoot[]
+      .getJsonFromCsvAsync("loot.csv")
     if (this.COUNT === 0) {
       throw new Error("No loot found")
     }
@@ -148,17 +138,17 @@ class DropZoneBot implements IDropZoneBot {
       info(`ℹ️  Found ${pluralize("loot item", this.COUNT, true)}`)
     }
 
-    const channel: Nullable<Channel> = await client.channels.fetch(env.CHANNEL_ID)
-    if (!channel) {
+    const channel = await client.channels.fetch(env.CHANNEL_ID)
+    if (channel?.type !== ChannelType.GuildText) {
       throw new Error("Could not get channel")
     }
 
-    this.CHANNEL = channel as TextChannel
+    this.CHANNEL = channel
 
     this.handleNewTime()
   }
 }
 
-const DropZone: IDropZoneBot = new DropZoneBot()
+const DropZone = new DropZoneBot()
 
 export { DropZone, type ILoot }

@@ -1,4 +1,4 @@
-# ![DropZoneBot](./utils/images/dropzonebot.webp) DropZoneBot
+# ![DropZoneBot](./utils/images/dropzonebot.webp "DropZoneBot") DropZoneBot
 
 > - DropZoneBot for Discord
 
@@ -35,7 +35,7 @@
 #### Role Permissions:
 
 |   ⚙️ Permission    |
-|:------------------:|
+| :----------------: |
 |    ViewChannel     |
 |    SendMessages    |
 |     EmbedLinks     |
@@ -46,7 +46,7 @@
 #### Commands:
 
 |     📋 Task      |      🔧 Command       | ⚙️ Permission |
-|:----------------:|:---------------------:|:-------------:|
+| :--------------: | :-------------------: | :-----------: |
 |    Drop Loot     |        `/drop`        | Administrator |
 |       Info       |        `/info`        |     None      |
 | Show Leaderboard |    `/leaderboard`     |     None      |
@@ -62,7 +62,7 @@
 #### Environment Variables:
 
 |             📝 Description             | 📌 Variable |  {...} Value   |
-|:--------------------------------------:|:-----------:|:--------------:|
+| :------------------------------------: | :---------: | :------------: |
 |                Activity                |  ACTIVITY   |    Dropping    |
 |               Channel ID               | CHANNEL_ID  |     \<id>      |
 |        Embed Color<sup>1</sup>         |    COLOR    |    #78866b     |
@@ -87,7 +87,7 @@
 ##### From `@postfmly/logoserver`:
 
 | 📝 Description | 📌 Variable |    {...} Value    |
-|:--------------:|:-----------:|:-----------------:|
+| :------------: | :---------: | :---------------: |
 |   Logo Name    |  LOGO_NAME  | dropzonebot.webp  |
 |   Local Path   |  LOGO_PATH  |  ./utils/images   |
 |      Port      |  LOGO_PORT  | **Random**/[port] |
@@ -95,12 +95,12 @@
 
 ##### From `@postfmly/checkrate`:
 
-###### *NOTE: Rate limited to 1 request per 1 second*
+###### _NOTE: Rate limited to 1 request per 1 second_
 
 #### Deployment:
 
 |  📜 Script  |  🔧 Command   |
-|:-----------:|:-------------:|
+| :---------: | :-----------: |
 |    Full     | `./build.sh`  |
 | Docker Only | `./docker.sh` |
 
@@ -121,13 +121,13 @@ name,min,max
 Loot Item,100,200
 ```
 
-###### *NOTES:*
+###### _NOTES:_
 
-###### - *`name` length must be >= 2*
+###### - _`name` length must be >= 2_
 
-###### - *`min` must be > 0*
+###### - _`min` must be > 0_
 
-###### - *`max` must be >= `min`*
+###### - _`max` must be >= `min`_
 
 ---
 
