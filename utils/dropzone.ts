@@ -120,14 +120,14 @@ class DropZoneBot implements IDropZoneBot {
   }
 
   async init(client: Client): Promise<void> {
-    this.LOOT = await csvToJson
+    this.LOOT = (await csvToJson
       .formatValueByType(true)
       .mapRows((row: ILoot): ILoot => {
         row.name = titleCase(row.name.trim())
 
         return row
       })
-      .getJsonFromCsvAsync("loot.csv")
+      .getJsonFromCsvAsync("loot.csv")) satisfies ILoot[]
     if (this.COUNT === 0) {
       throw new Error("No loot found")
     }
