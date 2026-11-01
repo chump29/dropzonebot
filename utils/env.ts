@@ -2,7 +2,7 @@ import { type Optional } from "@postfmly/types"
 
 import { type HexColorString } from "discord.js"
 import { bool, cleanEnv, makeExactValidator, str, url } from "envalid"
-import { anyOf, caseInsensitive, charIn, createRegExp, exactly, wordChar } from "magic-regexp"
+import { anyOf, caseInsensitive, charIn, createRegExp, digit, exactly, wordChar } from "magic-regexp"
 import {
   digits,
   emoji,
@@ -55,11 +55,10 @@ const EmojiSchema = pipe(StringSchema, emoji())
 const MinMaxTimeSchema = pipe(
   StringSchema,
   regex(
-    // ! Desired: /^(?:(?:[1-9]|[1-5]\d)m|[1-6]h)$/i
     createRegExp(
       anyOf(
-        anyOf(charIn("123456789"), charIn("12345").and(charIn("0123456789"))).and(exactly("m")),
-        charIn("123456").and(exactly("h"))
+        anyOf(charIn.from("1", "9"), charIn.from("1", "5").and(digit)).and(exactly("m")),
+        charIn.from("1", "6").and(exactly("h"))
       )
         .at.lineStart()
         .at.lineEnd(),
