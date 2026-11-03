@@ -31,9 +31,9 @@ beforeAll(async (): Promise<void> => {
 
 describe("client", (): void => {
   test("init", async (): Promise<void> => {
-    await Client.shutdown()
+    await Client.shutdown("TEST")
 
-    const TIMES = 11
+    const TIMES = 13
     expect(infoSpy).toHaveBeenCalledTimes(TIMES)
 
     const LINE_NUM = 5
