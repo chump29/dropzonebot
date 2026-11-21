@@ -4,27 +4,27 @@
 
 ---
 
-![Bun](https://img.shields.io/badge/Bun-1.4.4-informational?style=plastic&logo=bun) &nbsp;
-![discord.js](https://img.shields.io/badge/discord.js-14.28.0-informational?style=plastic&logo=discord.js) &nbsp;
-![Drizzle](https://img.shields.io/badge/Drizzle-1.0.0--rc.5-informational?style=plastic&logo=drizzle)
+![Bun](https://img.shields.io/badge/Bun-1.4.5-informational?style=plastic&logo=bun) &nbsp;
+![discord.js](https://img.shields.io/badge/discord.js-14.28.1-informational?style=plastic&logo=discord.js) &nbsp;
+![Drizzle](https://img.shields.io/badge/Drizzle-1.0.0--rc.6-informational?style=plastic&logo=drizzle)
 ![SQLite](https://img.shields.io/badge/SQLite-3.53.4-informational?style=plastic&logo=sqlite)
 
 ![CodeQL](https://github.com/chump29/dropzonebot/workflows/CodeQL/badge.svg) &nbsp;
-![Coverage](https://img.shields.io/badge/Coverage-78.87%25-success?style=plastic&logo=jest)
+![Coverage](https://img.shields.io/badge/Coverage-77.7%25-success?style=plastic&logo=jest)
 
 ![NO AI](https://img.shields.io/badge/NO-AI-orange?style=plastic "NO AI") &nbsp;
-![License](https://img.shields.io/github/license/chump29/dropzonebot?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp; <!-- markdownlint-disable MD013 -->
+![License](https://img.shields.io/github/license/chump29/dropzonebot?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp;
 ![CVE Scan](https://img.shields.io/badge/CVE%20Scan-Pass-success?style=plastic&logo=owasp "CVE Scan")
 
 ---
 
-### What it does: <!-- markdownlint-disable-line MD001 -->
+### What it does:
 
 - Drops loot
 
 ---
 
-### 🔗 Invite Link <!-- markdownlint-disable-line MD001 -->
+### 🔗 Invite Link
 
 [Add DropZoneBot](https://discord.com/oauth2/authorize?client_id=1491121781006925854&permissions=93248&integration_type=0&scope=bot)
 
@@ -76,7 +76,7 @@
 | Claim Timeout (in minutes)<sup>4</sup> |   TIMEOUT   |       1        |
 |               Bot Token                |    TOKEN    |    \<token>    |
 
-###### <sup>1</sup> #RRGGBB format <!-- markdownlint-disable-line MD001 -->
+###### <sup>1</sup> #RRGGBB format
 
 ###### <sup>2</sup> 1-59m | 1-6h format
 
@@ -110,7 +110,7 @@
 
 `loot.csv`
 
-##### - `name` is Item Name <!-- markdownlint-disable-line MD001 -->
+##### - `name` is Item Name
 
 ##### - `min` is Minimum Loot Value
 

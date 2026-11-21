@@ -13,18 +13,18 @@
 ![Coverage](https://img.shields.io/badge/Coverage-$_coverage%25-success?style=plastic&logo=jest)
 
 ![NO AI](https://img.shields.io/badge/NO-AI-orange?style=plastic "NO AI") &nbsp;
-![License](https://img.shields.io/github/license/$_user/$_repo?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp; <!-- markdownlint-disable MD013 -->
+![License](https://img.shields.io/github/license/$_user/$_repo?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp;
 ![CVE Scan](https://img.shields.io/badge/CVE%20Scan-Pass-success?style=plastic&logo=owasp "CVE Scan")
 
 ---
 
-### What it does: <!-- markdownlint-disable-line MD001 -->
+### What it does:
 
 - Drops loot
 
 ---
 
-### 🔗 Invite Link <!-- markdownlint-disable-line MD001 -->
+### 🔗 Invite Link
 
 [Add DropZoneBot](https://discord.com/oauth2/authorize?client_id=1491121781006925854&permissions=93248&integration_type=0&scope=bot)
 
@@ -76,7 +76,7 @@
 | Claim Timeout (in minutes)<sup>4</sup> |   TIMEOUT   |       1        |
 |               Bot Token                |    TOKEN    |    \<token>    |
 
-###### <sup>1</sup> #RRGGBB format <!-- markdownlint-disable-line MD001 -->
+###### <sup>1</sup> #RRGGBB format
 
 ###### <sup>2</sup> 1-59m | 1-6h format
 
@@ -110,7 +110,7 @@
 
 `loot.csv`
 
-##### - `name` is Item Name <!-- markdownlint-disable-line MD001 -->
+##### - `name` is Item Name
 
 ##### - `min` is Minimum Loot Value
 

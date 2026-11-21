@@ -19,6 +19,6 @@ services:
       - homepage.icon=https://dropzonebot.postfmly.com/dropzonebot.webp
 
 volumes:
-  db:
+  db: {}
 
 networks: {}

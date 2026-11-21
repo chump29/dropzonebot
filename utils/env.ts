@@ -88,13 +88,13 @@ const TokenSchema = pipe(
   )
 )
 
-const idValidator = makeExactValidator<string>((s: string): string => parse(IdSchema, s))
-const colorValidator = makeExactValidator<HexColorString>((s: string): HexColorString => parse(ColorSchema, s))
-const emojiValidator = makeExactValidator<string>((s: string): string => parse(EmojiSchema, s))
-const minMaxTimeValidator = makeExactValidator<string>((s: string): string => parse(MinMaxTimeSchema, s))
-const portValidator = makeExactValidator<"random" | number>((s: string): "random" | number => parse(PortSchema, s))
-const timeoutValidator = makeExactValidator<number>((s: string): number => parse(TimeoutSchema, s))
-const tokenValidator = makeExactValidator<string>((s: string): string => parse(TokenSchema, s))
+const idValidator = makeExactValidator((s: string): string => parse(IdSchema, s))
+const colorValidator = makeExactValidator((s: string): HexColorString => parse(ColorSchema, s))
+const emojiValidator = makeExactValidator((s: string): string => parse(EmojiSchema, s))
+const minMaxTimeValidator = makeExactValidator((s: string): string => parse(MinMaxTimeSchema, s))
+const portValidator = makeExactValidator((s: string): "random" | number => parse(PortSchema, s))
+const timeoutValidator = makeExactValidator((s: string): number => parse(TimeoutSchema, s))
+const tokenValidator = makeExactValidator((s: string): string => parse(TokenSchema, s))
 
 let fakeId: Optional<string>
 let fakeURL: Optional<string>

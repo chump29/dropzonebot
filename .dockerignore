@@ -1,6 +1,5 @@
 *
 
-!.husky/prepare.min.mjs
 !bun.lock
 !db/
 !events/

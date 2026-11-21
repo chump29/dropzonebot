@@ -3,8 +3,6 @@ import { error, info } from "@postfmly/logger"
 import { default as pluralize } from "@jarrodek/pluralize"
 import { parse as ms } from "@lukeed/ms"
 import { default as csvToJson } from "convert-csv-to-json"
-import { default as dayjs } from "dayjs"
-import { default as localizedFormat } from "dayjs/plugin/localizedFormat"
 import { ChannelType, type Client, MessageFlags, type MessageReaction, type TextChannel, type User } from "discord.js"
 import { default as pretty } from "pretty-ms"
 import { titleCase } from "title-case"
@@ -12,8 +10,6 @@ import { exhaustiveUniqueRandom } from "unique-random"
 
 import { DB } from "./db.ts"
 import { env } from "./env.ts"
-
-dayjs.extend(localizedFormat)
 
 interface ILoot {
   max: number
@@ -29,6 +25,13 @@ interface IDropZoneBot {
   readonly TIME: string
 }
 
+const time = new Intl.DateTimeFormat("en-US", {
+  hour: "numeric",
+  hour12: true,
+  minute: "2-digit",
+  second: "2-digit"
+})
+
 class DropZoneBot implements IDropZoneBot {
   LOOT: ILoot[] = []
 
@@ -37,14 +40,14 @@ class DropZoneBot implements IDropZoneBot {
   private CHANNEL!: TextChannel
 
   private NEW_TIME_MS: number = 0
-  private NEW_TIME!: dayjs.Dayjs
+  private NEW_TIME!: Date
 
   get COUNT(): number {
     return this.LOOT.length
   }
 
   get TIME(): string {
-    return `🕒  Next Loot Drop: ${pretty(this.NEW_TIME_MS, { secondsDecimalDigits: 0 })} @ ${this.NEW_TIME.format("LTS")}`
+    return `🕒  Next Loot Drop: ${pretty(this.NEW_TIME_MS, { secondsDecimalDigits: 0 })} @ ${time.format(this.NEW_TIME)}`
   }
 
   private static getRandom(min: number, max: number): number {
@@ -59,10 +62,10 @@ class DropZoneBot implements IDropZoneBot {
 
     await message.react(env.EMOJI)
 
-    const filter = (reaction: MessageReaction, user: User): boolean => reaction.emoji.name === env.EMOJI && !user.bot
+    const isEmoji = (reaction: MessageReaction, user: User): boolean => reaction.emoji.name === env.EMOJI && !user.bot
 
     const collector = message.createReactionCollector({
-      filter,
+      filter: isEmoji,
       max: 1,
       time: ms(`${env.TIMEOUT}m`)
     })
@@ -106,7 +109,7 @@ class DropZoneBot implements IDropZoneBot {
   private getRandomTime(): void {
     this.NEW_TIME_MS = DropZoneBot.getRandom(ms(env.MIN_TIME), ms(env.MAX_TIME))
 
-    this.NEW_TIME = dayjs().add(this.NEW_TIME_MS, "ms")
+    this.NEW_TIME = new Date(Date.now() + this.NEW_TIME_MS)
   }
 
   private handleNewTime(): void {

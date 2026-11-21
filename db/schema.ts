@@ -1,11 +1,9 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 
-const points = sqliteTable("points", {
+export const points = sqliteTable("points", {
   id: integer().primaryKey(),
   name: text().notNull().unique(),
   points: integer().notNull()
 })
 
-type IPoints = Omit<typeof points.$inferInsert, "id">
-
-export { type IPoints, points }
+export type IPoints = Omit<typeof points.$inferInsert, "id">
